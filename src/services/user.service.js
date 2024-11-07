@@ -41,6 +41,53 @@ class UserService {
       console.log(error);
     }
   }
+ 
+
+  async loginUser(data){
+    
+    const { email, password } = data;
+
+    if (!email) return "El email es obligatorio";
+
+    
+
+    try {
+       
+       const user = await User.findOne({ email });
+
+       if (!user) return "El email no esta registrado";
+
+       const validPassword = bcrypt.compareSync(password, user.password);
+
+       if (!validPassword) {
+         return {
+           ok: false,
+           msg: "Contraseña incorrecta",
+         };
+       }
+       const token = await generarJWT(user.id, user.email);
+
+       return {
+         user:{
+            id:user._id,
+            last_name:user.last_name,
+            email:user.email
+         },
+         token: token,
+       };
+    
+    } catch (error) {
+      console.log(error);
+    }
+   
+
+  }
+
+
+
+
+
+
 }
 
 module.exports = UserService;

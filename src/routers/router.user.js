@@ -8,6 +8,6 @@ const userService=new UserService()
 const userController = new UserCotroller(userService)
 
 router.post('/auth/register',userController.register)
-
+router.post('/auth/login',userController.login)
 
 module.exports=router;

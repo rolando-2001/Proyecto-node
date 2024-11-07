@@ -45,6 +45,18 @@ class CartController {
   }
   
   
+  shopyCart = async (req, res) => {
+     
+     const data={
+        uid:req.uid,
+        name:req.name,
+        card:req.body
+     }
+     await this.cartService.shop(data)
+     .then((data)=>res.status(200).json(data))
+      .catch((error)=>res.status(500).json({message:"Error"}))
+
+  }
 
 
 }

@@ -66,9 +66,7 @@ class CartService {
    async  cartDatadb() {
 
         try {
-             
              const dataCart= await Cart.find().populate("dish_id")
-
              return {
                   data: dataCart
              }
@@ -77,7 +75,18 @@ class CartService {
        }
 
    }
-
+     
+  async shop(data){
+  
+    try{
+        const {uid,name,card}=data;
+        console.log(uid,name);
+        return { message :`Su compra se realizo con exito ${name}`};
+      
+     }catch(error){
+       console.log(error);
+     }
+  }
 
 }
 
